@@ -31,6 +31,7 @@ Even though tools like **Minikube** or **VM-based clusters** exist, running K8s 
 - **Great for learning** real K8s networking, multi-node communication, and cluster operations without needing multiple VMs.
     
 This makes it ideal for **labs, CI/CD testing, and demos**.
+
 <br>
 
 
