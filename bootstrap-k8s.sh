@@ -2,13 +2,13 @@
 set -euo pipefail
 
 # Kubernetes Bootstrapping Script
-# Tested on Ubuntu 22.04 - May need tweaking for other versions
+# Tested on Ubuntu 24.04 - May need tweaking for other versions
 
 # Configuration
 KUBERNETES_VERSION="1.34"
 CALICO_VERSION="3.30.3"
 POD_NETWORK_CIDR="10.0.0.0/16"
-ROOT_PASSWORD="osboxes.org"
+ROOT_PASSWORD="P@ssw0rd_K8s"
 
 log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
