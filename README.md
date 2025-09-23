@@ -4,21 +4,13 @@ This repository contains scripts to quickly set up a Kubernetes (K8s) cluster us
 > ⚠️ **Note:** Since this setup uses LXD containers, it is **not recommended for production use**. LXD is excellent for lightweight, fast, and isolated environments, but it lacks the robustness and security guarantees of full VM or bare-metal deployments.
 
 
-This project is heavily inspired by and modified from the original work by justmeandopensource
+This project is heavily inspired by and modified from the original work by [justmeandopensource](https://github.com/justmeandopensource/kubernetes.git)
 . While this repository is not a direct fork, full credit goes to their project for providing the foundational ideas and structure.
 
 <br>
 
-## Why LXD?
 
-**LXD** is a container hypervisor that provides **system containers** — lightweight, OS-level virtual machines with their own init systems and networking, running on top of the host kernel.
-
-- **Lightweight and fast**: Start a full Linux system in seconds.
-- **System-level isolation**: Unlike Docker, you get a full OS environment.
-- **Flexible networking**: Supports bridges, NAT, and more.
-
-While this demo uses LXD, it can also work with other **LXD-based platforms**, such as **Incus**, with minimal changes.
-You can check more info about LXD here: https://documentation.ubuntu.com/lxd/stable-5.21/tutorial/first_steps/
+You can check info about LXD here: https://documentation.ubuntu.com/lxd/stable-5.21/tutorial/first_steps/
 <br>
 
 
@@ -37,19 +29,19 @@ This makes it ideal for **labs, CI/CD testing, and demos**.
 ---
 
 # Setup
-**Clone The Repository**
+Clone The Repository
 ```shell
 git clone https://github.com/chan3845/lxc-k8s-deploy.git
 cd lxc-k8s-deploy/
 ```
 
-**Create and edit a new custom profile for Kubernetes cluster nodes**
+Create and edit a new custom profile for Kubernetes cluster nodes
 ```shell
 lxc profile create k8s
 lxc profile edit k8s
 ```
 
-**In the editor, paste the following contents from the `lxc-profile-k8s` file**
+In the editor, paste the following contents from the `lxc-profile-k8s` file
 ```shell
 config:
   limits.cpu: "2"
@@ -79,7 +71,7 @@ name: k8s
 used_by: []
 ```
 
-**Create LXC containers**
+Create LXC containers
 ```shell
 lxc launch ubuntu:24.04 srv-k8s-m1 --profile k8s
 lxc launch ubuntu:24.04 srv-k8s-w1 --profile k8s
@@ -87,9 +79,9 @@ lxc launch ubuntu:24.04 srv-k8s-w2 --profile k8s
 lxc launch ubuntu:24.04 srv-k8s-w3 --profile k8s
 ```
 
-> [!Naming Convention:] 
+> [!IMPORTANT]
+> **Naming Convention:** 
 > Master node must include the word `master` in its name and worker nodes must include `worker` to avoid issues with the bootstrap script.
-
 
 **Verify containers are running**
 ```shell
@@ -111,8 +103,10 @@ lxc ls
 +------------+---------+------------------------+----------------------------------------------+-----------+-----------+
 
 ```
+<br>
 
-##### Assign Static IP (optional but recommended)
+### Assign Static IP (optional but recommended)
+
 Assign a static IP for each node instead of using dynamically assigned IP from LXD network.
 
 ```shell
@@ -121,16 +115,18 @@ lxc config device add srv-k8s-w1 eth0 nic   nictype=bridged   parent=lxdbr0   na
 lxc config device add srv-k8s-w2 eth0 nic   nictype=bridged   parent=lxdbr0   name=eth0   ipv4.address=192.168.201.52
 lxc config device add srv-k8s-w3 eth0 nic   nictype=bridged   parent=lxdbr0   name=eth0   ipv4.address=192.168.201.53
 ```
-
-**Restart containers to apply IP changes**
+<br>
+Restart containers to apply IP changes.
 ```shell
 lxc restart srv-k8s-m1 srv-k8s-w1 srv-k8s-w2 srv-k8s-w3
 ```
 
-**Now verify the IP again**
+Now verify the IP again.
 ```shell
 lxc ls
-
+```
+Output:
+```shell
 +------------+---------+-----------------------+----------------------------------------------+-----------+-----------+
 |    NAME    |  STATE  |         IPV4          |                     IPV6                     |   TYPE    | SNAPSHOTS |
 +------------+---------+-----------------------+----------------------------------------------+-----------+-----------+
@@ -143,37 +139,41 @@ lxc ls
 | srv-k8s-w3 | RUNNING | 192.168.201.53 (eth0) | fd42:977e:cc5:b133:216:3eff:fea0:2eb (eth0)  | CONTAINER | 0         |
 +------------+---------+-----------------------+----------------------------------------------+-----------+-----------+ 
 ```
+<br>
 
-**To avoid issues with `kube-proxy` pods:**
+To avoid issues with `kube-proxy` pods:
 ```shell
 sudo sysctl -w net.netfilter.nf_conntrack_max=131072
 ```
 
-**Verify**
+Verify
 ```shell
 sysctl net.netfilter.nf_conntrack_max
-net.netfilter.nf_conntrack_max = 131072
+#net.netfilter.nf_conntrack_max = 131072
 ```
 
-**Now run the `bootstrap-k8s.sh` for the master node `srv-k8s-m1` and wait till it is finished**
-	```shell
-	cat bootstrap-kube.sh | lxc exec srv-k8s-m1 bash
-	```
+<br>
 
-**After the bootstrap successfully completed on the master node, run the `bootstrap-k8s.sh` script for each worker node as well**
+### Run the Bootstrap Script
+Now run the `bootstrap-k8s.sh` for the master node `srv-k8s-m1` and wait till it is finished.
+```shell
+cat bootstrap-kube.sh | lxc exec srv-k8s-m1 bash
+```
+
+After the bootstrap successfully completed on the master node, run the `bootstrap-k8s.sh` script for each worker node as well.
 ```
 cat bootstrap-kube.sh | lxc exec srv-k8s-w1 bash
 cat bootstrap-kube.sh | lxc exec srv-k8s-w2 bash
 cat bootstrap-kube.sh | lxc exec srv-k8s-w3 bash
 ```
 
-##### Verify the Kubernetes Cluster
-**Login to the master node**
+### Verify the Kubernetes Cluster
+ Login to the master node
 ```shell
 lxc exec srv-k8s-m1 bash 
 ```
 
-**Check the cluster nodes status**
+Check the cluster nodes status
 ```shell
 kubectl get nodes
 NAME         STATUS   ROLES           AGE     VERSION
