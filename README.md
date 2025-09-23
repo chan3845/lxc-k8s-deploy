@@ -7,6 +7,8 @@ This repository contains scripts to quickly set up a Kubernetes (K8s) cluster us
 This project is heavily inspired by and modified from the original work by justmeandopensource
 . While this repository is not a direct fork, full credit goes to their project for providing the foundational ideas and structure.
 
+
+
 ## Why LXD?
 
 **LXD** is a container hypervisor that provides **system containers** — lightweight, OS-level virtual machines with their own init systems and networking, running on top of the host kernel.
@@ -18,6 +20,8 @@ This project is heavily inspired by and modified from the original work by justm
 While this demo uses LXD, it can also work with other **LXD-based platforms**, such as **Incus**, with minimal changes.
 You can check more info about LXD here: https://documentation.ubuntu.com/lxd/stable-5.21/tutorial/first_steps/
 
+
+
 ## Why install Kubernetes on LXD?
 
 Even though tools like **Minikube** or **VM-based clusters** exist, running K8s on LXD has some advantages:
@@ -27,6 +31,8 @@ Even though tools like **Minikube** or **VM-based clusters** exist, running K8s 
 - **Great for learning** real K8s networking, multi-node communication, and cluster operations without needing multiple VMs.
     
 This makes it ideal for **labs, CI/CD testing, and demos**.
+
+
 
 ## Setup
 **Clone The Repository**
