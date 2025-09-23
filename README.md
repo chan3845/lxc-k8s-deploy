@@ -34,6 +34,10 @@ This makes it ideal for **labs, CI/CD testing, and demos**.
 
 <br>
 
+> [!NOTE]
+> **Naming Convention:** 
+> Master node must include the word `master` in its name and worker nodes must include `worker` to avoid issues with the bootstrap script.
+
 ---
 
 # Setup
