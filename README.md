@@ -28,11 +28,11 @@ Even though tools like **Minikube** or **VM-based clusters** exist, running K8s 
     
 This makes it ideal for **labs, CI/CD testing, and demos**.
 
-#### Setup
+## Setup
 **Clone The Repository**
 ```shell
-git clone 
-cd 
+git clone https://github.com/chan3845/lxc-k8s-deploy.git
+cd lxc-k8s-deploy/
 ```
 
 **Create and edit a new custom profile for Kubernetes cluster nodes**
