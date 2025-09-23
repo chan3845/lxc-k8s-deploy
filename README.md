@@ -172,4 +172,4 @@ srv-k8s-m1   Ready    control-plane   6m39s   v1.34.1
 srv-k8s-w1   Ready    <none>          4m9s    v1.34.1
 srv-k8s-w2   Ready    <none>          2m51s   v1.34.1
 srv-k8s-w3   Ready    <none>          77s     v1.34.1
-```test
+```
