@@ -34,10 +34,6 @@ This makes it ideal for **labs, CI/CD testing, and demos**.
 
 <br>
 
-> [!NOTE]
-> **Naming Convention:** 
-> Master node must include the word `master` in its name and worker nodes must include `worker` to avoid issues with the bootstrap script.
-
 ---
 
 # Setup
@@ -91,9 +87,8 @@ lxc launch ubuntu:24.04 srv-k8s-w2 --profile k8s
 lxc launch ubuntu:24.04 srv-k8s-w3 --profile k8s
 ```
 
-**Naming Convention:**
-<br>
-Master node must include the word `master` in its name and worker nodes must include `worker` to avoid issues with the bootstrap script.
+> [!Naming Convention:] 
+> Master node must include the word `master` in its name and worker nodes must include `worker` to avoid issues with the bootstrap script.
 
 
 **Verify containers are running**
