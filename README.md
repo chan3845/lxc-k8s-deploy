@@ -1,7 +1,7 @@
-## Kubernetes Cluster Setup with LXD Containers
-This repository contains script to quickly set up a Kubernetes (K8s) cluster using **LXD containers**. It is intended for **learning, testing, and demo purposes**.
+## Kubernetes Cluster Setup with LXC Containers
+This repository contains script to quickly set up a Kubernetes (K8s) cluster using **LXC containers**. It is intended for **learning, testing, and demo purposes**.
 
-> ⚠️ **Note:** Since this setup uses LXD containers, it is **not recommended for production use**. LXD is excellent for lightweight, fast, and isolated environments, but it lacks the robustness and security guarantees of full VM or bare-metal deployments.
+> ⚠️ **Note:** Since this setup uses LXD containers, it is **not recommended for production use**. LXC is excellent for lightweight, fast, and isolated environments, but it lacks the robustness and security guarantees of full VM or bare-metal deployments.
 
 
 This project is heavily inspired by and modified from the original work by [justmeandopensource](https://github.com/justmeandopensource/kubernetes.git)
@@ -116,6 +116,7 @@ lxc config device add srv-k8s-w2 eth0 nic   nictype=bridged   parent=lxdbr0   na
 lxc config device add srv-k8s-w3 eth0 nic   nictype=bridged   parent=lxdbr0   name=eth0   ipv4.address=192.168.201.53
 ```
 <br>
+
 Restart containers to apply IP changes.
 ```shell
 lxc restart srv-k8s-m1 srv-k8s-w1 srv-k8s-w2 srv-k8s-w3
