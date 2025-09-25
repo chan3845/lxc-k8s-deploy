@@ -158,14 +158,14 @@ sysctl net.netfilter.nf_conntrack_max
 ### Run the Bootstrap Script
 Now run the `bootstrap-k8s.sh` for the master node `srv-k8s-m1` and wait till it is finished.
 ```shell
-cat bootstrap-kube.sh | lxc exec srv-k8s-m1 bash
+cat bootstrap-k8s.sh | lxc exec srv-k8s-m1 bash
 ```
 
 After the bootstrap successfully completed on the master node, run the `bootstrap-k8s.sh` script for each worker node as well.
 ```
-cat bootstrap-kube.sh | lxc exec srv-k8s-w1 bash
-cat bootstrap-kube.sh | lxc exec srv-k8s-w2 bash
-cat bootstrap-kube.sh | lxc exec srv-k8s-w3 bash
+cat bootstrap-k8s.sh | lxc exec srv-k8s-w1 bash
+cat bootstrap-k8s.sh | lxc exec srv-k8s-w2 bash
+cat bootstrap-k8s.sh | lxc exec srv-k8s-w3 bash
 ```
 
 ### Verify the Kubernetes Cluster
