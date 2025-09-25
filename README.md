@@ -10,7 +10,7 @@ This project is heavily inspired by and modified from the original work by [just
 <br>
 
 
-You can check info about LXD here: https://documentation.ubuntu.com/lxd/stable-5.21/tutorial/first_steps/
+You can learn more about LXD here: https://documentation.ubuntu.com/lxd/stable-5.21/tutorial/first_steps/
 <br>
 
 
