@@ -1,5 +1,5 @@
 ## Kubernetes Cluster Setup with LXD Containers
-This repository contains scripts to quickly set up a Kubernetes (K8s) cluster using **LXD containers**. It is intended for **learning, testing, and demo purposes**.
+This repository contains script to quickly set up a Kubernetes (K8s) cluster using **LXD containers**. It is intended for **learning, testing, and demo purposes**.
 
 > ⚠️ **Note:** Since this setup uses LXD containers, it is **not recommended for production use**. LXD is excellent for lightweight, fast, and isolated environments, but it lacks the robustness and security guarantees of full VM or bare-metal deployments.
 
@@ -22,7 +22,7 @@ Even though tools like **Minikube** or **VM-based clusters** exist, running K8s 
 - **Lower resource overhead** while still providing a multi-node cluster experience.
 - **Great for learning** real K8s networking, multi-node communication, and cluster operations without needing multiple VMs.
     
-This makes it ideal for **labs, CI/CD testing, and demos**.
+This makes it ideal for **labs and demos**.
 
 <br>
 
