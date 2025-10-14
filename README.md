@@ -35,10 +35,20 @@ git clone https://github.com/chan3845/lxc-k8s-deploy.git
 cd lxc-k8s-deploy/
 ```
 
-Create and edit a new custom profile for Kubernetes cluster nodes
+**Create and edit a new custom profile for Kubernetes cluster nodes.**
+Customize and adjust the profile based on your need. For incus, you need to change the bridge adapter name to `incusbr0`
+
+<br> <br>
+For LXC/LXD:
 ```shell
 lxc profile create k8s
-lxc profile edit k8s
+lxc profile edit k8s < lxc-profile-k8s
+```
+
+For Incus:
+```shell
+incus profile create k8s
+incus profile edit k8s < lxc-profile-k8s
 ```
 
 In the editor, paste the following contents from the `lxc-profile-k8s` file
