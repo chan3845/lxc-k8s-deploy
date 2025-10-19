@@ -53,6 +53,9 @@ main_tasks() {
     systemctl restart kubelet
 
     log "TASK 5: Enabling SSH password authentication"
+    if ! dpkg -s openssh-server &> /dev/null; then 
+      echo ""SSH server not found. Installing ..."
+      
     sed -i 's/PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*
     echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
     systemctl restart ssh
