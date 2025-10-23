@@ -157,7 +157,7 @@ srv-k8s-w2   Ready    <none>          2m51s   v1.34.1
 srv-k8s-w3   Ready    <none>          77s     v1.34.1
 ```
 
-Check if all pods from the `kube-system` are running:
+Check if all`kube-system` pods are running:
 ```shell
 kubectl get pod -A 
 NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
