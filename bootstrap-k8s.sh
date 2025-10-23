@@ -2,13 +2,13 @@
 set -euo pipefail
 
 # Kubernetes Bootstrapping Script
-# Tested on Ubuntu 24.04 - May need tweaking for other versions
+# Tested on Ubuntu 22.04 - May need tweaking for other versions
 
 # Configuration
 KUBERNETES_VERSION="1.34"
 CALICO_VERSION="3.30.3"
 POD_NETWORK_CIDR="10.0.0.0/16"
-ROOT_PASSWORD="P@ssw0rd_K8s"
+ROOT_PASSWORD="osboxes.org"
 
 log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
@@ -52,11 +52,26 @@ main_tasks() {
     echo 'KUBELET_EXTRA_ARGS="--fail-swap-on=false"' > /etc/default/kubelet
     systemctl restart kubelet
 
+
+
     log "TASK 5: Enabling SSH password authentication"
     if ! dpkg -s openssh-server &> /dev/null; then 
-      echo ""SSH server not found. Installing ..."
-      
-    sed -i 's/PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*
+	    echo "SSH server not found. Installing ..."
+	    sudo apt update && sudo apt install openssh-server -y 
+    else 
+	    echo "SSH server is installed" 
+    fi
+    
+    # Update main sshd_config
+    sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+    # Update sshd_config.d files if any exist
+    if compgen -G "/etc/ssh/sshd_config.d/*" > /dev/null; then
+      sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config.d/*
+    fi
+
+    
+   #sed -i 's/PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
     echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
     systemctl restart ssh
 
@@ -90,7 +105,7 @@ master_tasks() {
 worker_tasks() {
     log "TASK 7: Joining node to Kubernetes Cluster"
     install_packages sshpass
-    sshpass -p "${ROOT_PASSWORD}" scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no srv-k8s-m1.lxd:/joincluster.sh /joincluster.sh
+    sshpass -p "${ROOT_PASSWORD}" scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no srv-k8s-m1:/joincluster.sh /joincluster.sh
     bash /joincluster.sh >> /tmp/joincluster.log 2>&1
 }
 
@@ -99,7 +114,7 @@ main() {
 
     if [[ $(hostname) == "srv-k8s-m1" ]]; then
         master_tasks
-    elif [[ $(hostname) =~ ^srv-k8s-w[123]$ ]]; then
+    elif [[ $(hostname) =~ ^srv-k8s-w[1-9]$ ]]; then
         worker_tasks
     else
         log "Unknown node type. Exiting."
@@ -110,4 +125,3 @@ main() {
 }
 
 main
-
