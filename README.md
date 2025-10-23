@@ -45,12 +45,6 @@ lxc profile create k8s
 lxc profile edit k8s < lxc-profile-k8s
 ```
 
-For Incus:
-```shell
-incus profile create k8s
-incus profile edit k8s < lxc-profile-k8s
-```
-
 In the editor, paste the following contents from the `lxc-profile-k8s` file
 ```shell
 config:
