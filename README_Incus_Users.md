@@ -65,7 +65,7 @@ incus config device add srv-k8s-w3 eth0 nic   nictype=bridged   parent=incusbr0 
 
 Restart containers to apply IP changes.
 ```shell
-lincus restart srv-k8s-m1 srv-k8s-w1 srv-k8s-w2 srv-k8s-w3
+incus restart srv-k8s-m1 srv-k8s-w1 srv-k8s-w2 srv-k8s-w3
 ```
 
 Now verify the IP again.
