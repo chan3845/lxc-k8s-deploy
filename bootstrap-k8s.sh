@@ -70,8 +70,6 @@ main_tasks() {
       sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config.d/*
     fi
 
-    
-   #sed -i 's/PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
     echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
     systemctl restart ssh
 
