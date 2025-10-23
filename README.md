@@ -29,53 +29,22 @@ This makes it ideal for **labs and demos**.
 ---
 
 # Setup
-Clone The Repository
+**Clone The Repository:**
 ```shell
 git clone https://github.com/chan3845/lxc-k8s-deploy.git
 cd lxc-k8s-deploy/
 ```
 
-**Create and edit a new custom profile for Kubernetes cluster nodes.**
-Customize and adjust the profile based on your need. For incus, you need to change the bridge adapter name to `incusbr0`
+### Create and edit a new custom profile for Kubernetes cluster nodes.
+Use the `lxc-profile-k8s` file as a template and adjust it according to your requirements. <br> <br>
+**Important:** Ensure that the bridge adapter name in the parent configuration and the storage pool name match your environment.
 
-<br> <br>
-For LXC/LXD:
 ```shell
 lxc profile create k8s
 lxc profile edit k8s < lxc-profile-k8s
 ```
 
-In the editor, paste the following contents from the `lxc-profile-k8s` file
-```shell
-config:
-  limits.cpu: "2"
-  limits.memory: 4GB
-  limits.memory.swap: "false"
-  linux.kernel_modules: ip_tables,ip6_tables,nf_nat,overlay,br_netfilter
-  raw.lxc: "lxc.apparmor.profile=unconfined\nlxc.cap.drop= \nlxc.cgroup.devices.allow=a\nlxc.mount.auto=proc:rw
-    sys:rw"
-  security.privileged: "true"
-  security.nesting: "true"
-description: LXD profile for Kubernetes
-devices:
-  eth0:
-    name: eth0
-    nictype: bridged
-    parent: lxdbr0
-    type: nic
-  kmsg:
-    path: /dev/kmsg
-    source: /dev/kmsg
-    type: unix-char
-  root:
-    path: /
-    pool: default
-    type: disk
-name: k8s
-used_by: []
-```
-
-Create LXC containers
+**Create LXC containers:**
 ```shell
 lxc launch ubuntu:24.04 srv-k8s-m1 --profile k8s
 lxc launch ubuntu:24.04 srv-k8s-w1 --profile k8s
