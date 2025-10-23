@@ -156,3 +156,24 @@ srv-k8s-w1   Ready    <none>          4m9s    v1.34.1
 srv-k8s-w2   Ready    <none>          2m51s   v1.34.1
 srv-k8s-w3   Ready    <none>          77s     v1.34.1
 ```
+
+Check if all pods from the `kube-system` are running:
+```shell
+kubectl get pod -A 
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+kube-system   calico-kube-controllers-59556d9b4c-976t5   1/1     Running   0          6m47s
+kube-system   calico-node-29clw                          1/1     Running   0          4m46s
+kube-system   calico-node-9cct4                          1/1     Running   0          6m47s
+kube-system   calico-node-dl2rb                          1/1     Running   0          113s
+kube-system   calico-node-mwjjw                          1/1     Running   0          3m28s
+kube-system   coredns-66bc5c9577-6mt6v                   1/1     Running   0          6m47s
+kube-system   coredns-66bc5c9577-mfrhq                   1/1     Running   0          6m47s
+kube-system   etcd-srv-k8s-m1                            1/1     Running   0          6m56s
+kube-system   kube-apiserver-srv-k8s-m1                  1/1     Running   0          6m55s
+kube-system   kube-controller-manager-srv-k8s-m1         1/1     Running   0          6m56s
+kube-system   kube-proxy-6zw98                           1/1     Running   0          4m46s
+kube-system   kube-proxy-hcwpr                           1/1     Running   0          3m28s
+kube-system   kube-proxy-qsfhq                           1/1     Running   0          6m47s
+kube-system   kube-proxy-sll8r                           1/1     Running   0          113s
+kube-system   kube-scheduler-srv-k8s-m1                  1/1     Running   0          6m55s
+```
